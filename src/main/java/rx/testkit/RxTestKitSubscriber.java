@@ -16,14 +16,19 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class RxTestKitSubscriber<T> extends TestSubscriber<T> {
+	public void assertValuesMatching(Matcher<Iterable<T>> matcher) {
+		assertValuesMatching(null,matcher);
+	}
 	public void assertValuesMatching(String reason, Matcher<Iterable<T>> matcher) {
 		List<T> actual = getOnNextEvents();
 		if (!matcher.matches(actual)) {
 			Description description = new StringDescription();
-			description.appendText(reason)
-					.appendText("\nExpected: ")
-					.appendDescriptionOf(matcher)
-					.appendText("\n     but: ");
+			if (reason != null) {
+				description.appendText(reason)
+						.appendText("\nExpected: ")
+						.appendDescriptionOf(matcher)
+						.appendText("\n     but: ");
+			}
 			matcher.describeMismatch(actual, description);
 
 			throw new AssertionError(description.toString());
