@@ -1,8 +1,13 @@
 package rx.testkit;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.StringDescription;
 import rx.observers.TestSubscriber;
 
-import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,5 +16,17 @@ import java.util.ArrayList;
  * To change this template use File | Settings | File Templates.
  */
 public class RxTestKitSubscriber<T> extends TestSubscriber<T> {
+	public void assertValuesMatching(String reason, Matcher<Iterable<T>> matcher) {
+		List<T> actual = getOnNextEvents();
+		if (!matcher.matches(actual)) {
+			Description description = new StringDescription();
+			description.appendText(reason)
+					.appendText("\nExpected: ")
+					.appendDescriptionOf(matcher)
+					.appendText("\n     but: ");
+			matcher.describeMismatch(actual, description);
 
+			throw new AssertionError(description.toString());
+		}
+	}
 }
