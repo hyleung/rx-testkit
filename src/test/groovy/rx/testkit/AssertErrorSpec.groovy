@@ -17,6 +17,7 @@ class AssertErrorSpec extends Specification{
     def "assertError should fail if no errors are emitted"() {
         given:
             def Observable<Integer> observable = Observable.just(1)
+        and:
             observable.subscribe(subscriber)
         when:
             subscriber.assertError(any(Throwable))
@@ -26,6 +27,7 @@ class AssertErrorSpec extends Specification{
     def "assertError should pass if matching error is emitted"() {
         given:
             def Observable<Integer> observable = Observable.error(new CustomException())
+        and:
             observable.subscribe(subscriber)
         when:
             subscriber.assertError(any(CustomException))
@@ -35,6 +37,7 @@ class AssertErrorSpec extends Specification{
     def "assertError should fail if non-matching error is emitted"() {
         given:
             def Observable<Integer> observable = Observable.error(new Exception())
+        and:
             observable.subscribe(subscriber)
         when:
             subscriber.assertError(any(CustomException))
