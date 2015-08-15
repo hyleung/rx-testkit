@@ -1,0 +1,48 @@
+### https://raw.github.com/github/gitignore/e0df63986afdb4da49071873c054ef4288e6f4ed/java.gitignore
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+
+### https://raw.github.com/github/gitignore/e0df63986afdb4da49071873c054ef4288e6f4ed/gradle.gitignore
+
+.gradle
+build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+
+### https://raw.github.com/github/gitignore/e0df63986afdb4da49071873c054ef4288e6f4ed/Global/jetbrains.gitignore
+
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion
+
+*.iml
+
+## Directory-based project format:
+.idea/
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+/out/
+
+
+
