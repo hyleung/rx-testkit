@@ -2,7 +2,6 @@ package rx.testkit;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.MatcherAssert;
 import org.hamcrest.StringDescription;
 import rx.observers.TestSubscriber;
 
@@ -16,20 +15,20 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class RxTestKitSubscriber<T> extends TestSubscriber<T> {
-	public void assertValueMatching(String reason, Matcher<T> matcher) {
+	public void assertValue(String reason, Matcher<T> matcher) {
 		assertValueCount(1);
 		T actual = getOnNextEvents().get(0);
 		if (!matcher.matches(actual)){
 			throwAssertionError(reason, matcher, actual);
 		}
 	}
-	public void assertValueMatching(Matcher<T> matcher) {
-		assertValueMatching(null, matcher);
+	public void assertValue(Matcher<T> matcher) {
+		assertValue(null, matcher);
 	}
-	public void assertValuesMatching(Matcher<Iterable<T>> matcher) {
-		assertValuesMatching(null,matcher);
+	public void assertValues(Matcher<Iterable<T>> matcher) {
+		assertValues(null, matcher);
 	}
-	public void assertValuesMatching(String reason, Matcher<Iterable<T>> matcher) {
+	public void assertValues(String reason, Matcher<Iterable<T>> matcher) {
 		List<T> actual = getOnNextEvents();
 		if (!matcher.matches(actual)) {
 			throwAssertionError(reason, matcher, actual);

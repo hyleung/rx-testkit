@@ -19,7 +19,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         then:
-            subscriber.assertValuesMatching(hasItem(is(3)))
+            subscriber.assertValues(hasItem(is(3)))
     }
     def "assertValuesMatching reason should fail if emitted values don't match"() {
         given:
@@ -28,7 +28,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValuesMatching(hasItem(is(30)))
+            subscriber.assertValues(hasItem(is(30)))
         then:
             thrown AssertionError
     }
@@ -39,7 +39,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         then:
-            subscriber.assertValuesMatching("foo", hasItem(is(3)))
+            subscriber.assertValues("foo", hasItem(is(3)))
     }
     def "assertValuesMatching with reason should fail if emitted values don't match"() {
         given:
@@ -48,7 +48,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValuesMatching("foo", hasItem(is(30)))
+            subscriber.assertValues("foo", hasItem(is(30)))
         then:
             thrown AssertionError
     }
@@ -59,7 +59,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValueMatching(is(1))
+            subscriber.assertValue(is(1))
         then:
             thrown AssertionError
     }
@@ -70,7 +70,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValueMatching(is(1))
+            subscriber.assertValue(is(1))
         then:
             thrown AssertionError
     }
@@ -81,7 +81,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValueMatching(is(1))
+            subscriber.assertValue(is(1))
         then:
             notThrown AssertionError
     }
@@ -92,7 +92,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
         o.subscribe(subscriber)
         and:
-        subscriber.assertValueMatching(is(2))
+        subscriber.assertValue(is(2))
         then:
         thrown AssertionError
     }
@@ -104,7 +104,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValueMatching("foo", is(1))
+            subscriber.assertValue("foo", is(1))
         then:
             thrown AssertionError
     }
@@ -115,7 +115,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValueMatching("foo", is(1))
+            subscriber.assertValue("foo", is(1))
         then:
             thrown AssertionError
     }
@@ -126,7 +126,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValueMatching("foo", is(1))
+            subscriber.assertValue("foo", is(1))
         then:
             notThrown AssertionError
     }
@@ -137,7 +137,7 @@ class RxTestKitSubscriberSpec extends Specification {
         when:
             o.subscribe(subscriber)
         and:
-            subscriber.assertValueMatching("foo", is(2))
+            subscriber.assertValue("foo", is(2))
         then:
             thrown AssertionError
     }
