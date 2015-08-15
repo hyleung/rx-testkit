@@ -12,7 +12,7 @@ import rx.Observable
 class RxTestKitSubscriberSpec extends Specification {
     def setup() {
     }
-    def "assertValueMatching reason should pass if emitted values match"() {
+    def "assertValuesMatching reason should pass if emitted values match"() {
         given:
             def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber<>()
             Observable<Integer> o = Observable.from([1,2,3,4,5])
@@ -21,7 +21,7 @@ class RxTestKitSubscriberSpec extends Specification {
         then:
             subscriber.assertValuesMatching(hasItem(is(3)))
     }
-    def "assertValueMatching reason should fail if emitted values don't match"() {
+    def "assertValuesMatching reason should fail if emitted values don't match"() {
         given:
             def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber<>()
             Observable<Integer> o = Observable.from([1,2,3,4,5])
@@ -32,7 +32,7 @@ class RxTestKitSubscriberSpec extends Specification {
         then:
             thrown AssertionError
     }
-    def "assertValueMatching with reason should pass if emitted values match"() {
+    def "assertValuesMatching with reason should pass if emitted values match"() {
         given:
             def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber<>()
             Observable<Integer> o = Observable.from([1,2,3,4,5])
@@ -41,7 +41,7 @@ class RxTestKitSubscriberSpec extends Specification {
         then:
             subscriber.assertValuesMatching("foo", hasItem(is(3)))
     }
-    def "assertValueMatching with reason should fail if emitted values don't match"() {
+    def "assertValuesMatching with reason should fail if emitted values don't match"() {
         given:
             def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber<>()
             Observable<Integer> o = Observable.from([1,2,3,4,5])
@@ -49,6 +49,50 @@ class RxTestKitSubscriberSpec extends Specification {
             o.subscribe(subscriber)
         and:
             subscriber.assertValuesMatching("foo", hasItem(is(30)))
+        then:
+            thrown AssertionError
+    }
+    def "assertValueMatching should fail if no values are emitted"() {
+        given:
+            def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber()
+            Observable<Integer> o = Observable.empty()
+        when:
+            o.subscribe(subscriber)
+        and:
+            subscriber.assertValueMatching(is(1))
+        then:
+            thrown AssertionError
+    }
+    def "assertValueMatching should fail if  more than 1 value is emitted"() {
+        given:
+            def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber()
+            Observable<Integer> o = Observable.from([1,2,3,4,5])
+        when:
+            o.subscribe(subscriber)
+        and:
+            subscriber.assertValueMatching(is(1))
+        then:
+            thrown AssertionError
+    }
+    def "assertValueMatching should pass if value emitted matches"() {
+        given:
+            def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber()
+            Observable<Integer> o = Observable.just(1)
+        when:
+            o.subscribe(subscriber)
+        and:
+            subscriber.assertValueMatching(is(1))
+        then:
+            notThrown AssertionError
+    }
+    def "assertValueMatching should fail if value emitted doesn't match"() {
+        given:
+            def RxTestKitSubscriber<Integer> subscriber = new RxTestKitSubscriber()
+            Observable<Integer> o = Observable.just(1)
+        when:
+            o.subscribe(subscriber)
+        and:
+            subscriber.assertValueMatching(is(2))
         then:
             thrown AssertionError
     }

@@ -16,6 +16,12 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class RxTestKitSubscriber<T> extends TestSubscriber<T> {
+	public void assertValueMatching(Matcher<T> matcher) {
+		assertValueCount(1);
+		if (!matcher.matches(getOnNextEvents().get(0))){
+			throw new AssertionError();
+		}
+	}
 	public void assertValuesMatching(Matcher<Iterable<T>> matcher) {
 		assertValuesMatching(null,matcher);
 	}
