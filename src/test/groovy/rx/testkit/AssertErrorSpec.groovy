@@ -44,5 +44,25 @@ class AssertErrorSpec extends Specification{
         then:
             thrown AssertionError
     }
+    def "assertError should fail with reason if no errors are emitted"() {
+        given:
+            def Observable<Integer> observable = Observable.just(1)
+        and:
+            observable.subscribe(subscriber)
+        when:
+            subscriber.assertError("foo", any(Throwable))
+        then:
+            thrown AssertionError
+    }
+    def "assertError should fail with reason if non-matching error is emitted"() {
+        given:
+            def Observable<Integer> observable = Observable.error(new Exception())
+        and:
+            observable.subscribe(subscriber)
+        when:
+            subscriber.assertError("foo", any(CustomException))
+        then:
+            thrown AssertionError
+    }
     private static class CustomException extends Throwable{}
 }

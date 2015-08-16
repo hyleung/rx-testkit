@@ -34,15 +34,17 @@ public class RxTestKitSubscriber<T> extends TestSubscriber<T> {
 			throwAssertionError(reason, matcher, actual);
 		}
 	}
-
 	public void assertError(Matcher<Throwable> matcher) {
+		assertError(null, matcher);
+	}
+	public void assertError(String reason, Matcher<Throwable> matcher) {
 		List<Throwable> onErrorEvents = getOnErrorEvents();
 		if (onErrorEvents.isEmpty()) {
-			throw new AssertionError();
+			throw new AssertionError("No error events were emitted");
 		}
 		Throwable actual = onErrorEvents.get(0);
 		if  (!matcher.matches(actual)) {
-			throwAssertionError(null, matcher, actual);
+			throwAssertionError(reason, matcher, actual);
 		};
 	}
 	private void throwAssertionError(String reason, Matcher matcher, Object actual) {
