@@ -1,9 +1,19 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: "jacoco"
+apply plugin: 'maven'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+version = "0-SNAPSHOT"
+
+install {
+    repositories.mavenInstaller {
+        pom.groupId = 'rx.testkit'
+        pom.artifactId = 'testkit-java'
+    }
+}
 
 repositories {
     mavenCentral()
