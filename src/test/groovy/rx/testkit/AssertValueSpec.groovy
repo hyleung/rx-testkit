@@ -4,10 +4,7 @@ import static org.hamcrest.CoreMatchers.*
 import spock.lang.Specification
 import rx.Observable
 /**
- * Created with IntelliJ IDEA.
- * Date: 15-08-14
- * Time: 7:50 PM
- * To change this template use File | Settings | File Templates.
+ * Specification for {@link RxTestKitSubscriber#assertValue(org.hamcrest.Matcher)}
  */
 class AssertValueSpec extends Specification {
     def RxTestKitSubscriber<Integer> subscriber

@@ -7,10 +7,7 @@ import static org.hamcrest.CoreMatchers.hasItem
 import static org.hamcrest.CoreMatchers.is
 
 /**
- * Created with IntelliJ IDEA.
- * Date: 15-08-15
- * Time: 2:10 PM
- * To change this template use File | Settings | File Templates.
+ * Specification for {@link RxTestKitSubscriber#assertValues(org.hamcrest.Matcher)}
  */
 class AssertValuesSpec extends Specification {
     def RxTestKitSubscriber<Integer> subscriber
