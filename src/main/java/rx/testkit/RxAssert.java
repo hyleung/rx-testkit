@@ -31,11 +31,6 @@ public class RxAssert<T> extends AbstractAssert<RxAssert<T>, Observable<T>> {
 		return this;
 	}
 
-	public RxAssert<T> withValue(T expected) {
-		subscriber.assertValue(expected);
-		return this;
-	}
-
 	public AbstractListAssert<?, ? extends List<? extends T>, T> values() {
 		List<T> onNextEvents = subscriber.getOnNextEvents();
 		return (AbstractListAssert<?, ? extends List<? extends T>, T>) Assertions.assertThat(onNextEvents);
