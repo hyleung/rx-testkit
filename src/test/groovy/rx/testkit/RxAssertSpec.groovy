@@ -55,4 +55,35 @@ class RxAssertSpec extends Specification {
         then:
             thrown(AssertionError)
     }
+    def "When asserting values, should return an Assertion if values are present"() {
+        given:
+            def Observable<Integer> observable = Observable.just(1)
+        when:
+            def assertion = assertThat(observable).values()
+        then:
+            assertion != null
+        and:
+            assertion.isNotEmpty()
+    }
+    def "When asserting values, should return an Assertion no values are present"() {
+
+        given:
+            def Observable<Integer> observable = Observable.empty()
+        when:
+            def assertion = assertThat(observable).values()
+        then:
+            assertion != null
+        and:
+            assertion.isEmpty()
+    }
+    def "When asserting values, should return an Assertion Observable doesn't complete"() {
+        given:
+            def Observable<Integer> observable = Observable.never()
+        when:
+            def assertThat = assertThat(observable).values()
+        then:
+            assertThat != null
+        and:
+            assertThat.isEmpty()
+    }
 }

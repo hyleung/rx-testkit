@@ -1,8 +1,13 @@
 package rx.testkit;
 
 import org.assertj.core.api.AbstractAssert;
+import org.assertj.core.api.AbstractListAssert;
+import org.assertj.core.api.Assert;
+import org.assertj.core.api.Assertions;
 import rx.Observable;
 import rx.observers.TestSubscriber;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,11 +16,10 @@ import rx.observers.TestSubscriber;
  * To change this template use File | Settings | File Templates.
  */
 public class RxAssert<T> extends AbstractAssert<RxAssert<T>, Observable<T>> {
-	private final Observable<T> observable;
 	private final TestSubscriber<T> subscriber;
 	protected RxAssert(Observable<T> actual) {
 		super(actual, RxAssert.class);
-		this.observable = actual;
+		Observable<T> observable = actual;
 		subscriber = new TestSubscriber<>();
 		observable.subscribe(subscriber);
 	}
@@ -30,5 +34,10 @@ public class RxAssert<T> extends AbstractAssert<RxAssert<T>, Observable<T>> {
 	public RxAssert<T> withValue(T expected) {
 		subscriber.assertValue(expected);
 		return this;
+	}
+
+	public AbstractListAssert<?, ? extends List<? extends T>, T> values() {
+		List<T> onNextEvents = subscriber.getOnNextEvents();
+		return (AbstractListAssert<?, ? extends List<? extends T>, T>) Assertions.assertThat(onNextEvents);
 	}
 }
