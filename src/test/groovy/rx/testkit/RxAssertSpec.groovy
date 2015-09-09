@@ -31,4 +31,28 @@ class RxAssertSpec extends Specification {
         then:
             thrown(AssertionError)
     }
+    def "When asserting withValue, should not throw AssertionError if Observable emits value"() {
+        given:
+            def Observable<Integer> observable = Observable.just(1)
+        when:
+            assertThat(observable).withValue(1)
+        then:
+            noExceptionThrown()
+    }
+    def "When asserting withValue, should throw AssertionError if Observable emits non-matching value"() {
+        given:
+            def Observable<Integer> observable = Observable.just(2)
+        when:
+            assertThat(observable).withValue(1)
+        then:
+            thrown(AssertionError)
+    }
+    def "When asserting withValue, should throw AssertionError if Observable does not emit value"() {
+        given:
+            def Observable<Integer> observable = Observable.never()
+        when:
+            assertThat(observable).withValue(1)
+        then:
+            thrown(AssertionError)
+    }
 }

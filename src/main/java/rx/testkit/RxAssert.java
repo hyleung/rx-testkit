@@ -12,17 +12,23 @@ import rx.observers.TestSubscriber;
  */
 public class RxAssert<T> extends AbstractAssert<RxAssert<T>, Observable<T>> {
 	private final Observable<T> observable;
+	private final TestSubscriber<T> subscriber;
 	protected RxAssert(Observable<T> actual) {
 		super(actual, RxAssert.class);
 		this.observable = actual;
+		subscriber = new TestSubscriber<>();
+		observable.subscribe(subscriber);
 	}
 	public static <T> RxAssert<T> assertThat(Observable<T> observable) {
 		return new RxAssert<>(observable);
 	}
 	public RxAssert<T> hasCompleted() {
-		TestSubscriber<T> subscriber = new TestSubscriber<>();
-		observable.subscribe(subscriber);
 		subscriber.assertCompleted();
+		return this;
+	}
+
+	public RxAssert<T> withValue(T expected) {
+		subscriber.assertValue(expected);
 		return this;
 	}
 }
