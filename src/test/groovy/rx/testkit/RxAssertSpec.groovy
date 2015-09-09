@@ -31,6 +31,22 @@ class RxAssertSpec extends Specification {
         then:
             thrown(AssertionError)
     }
+    def "When asserting hasNotCompleted, should throw AssertionError if the Observable completes"() {
+        given:
+            def Observable observable = Observable.just(1)
+        when:
+            assertThat(observable).hasNotCompleted()
+        then:
+            thrown(AssertionError)
+    }
+    def "When asserting hasNotCompleted, should not throw AssertionError if the Observable never completes"() {
+        given:
+            def Observable observable = Observable.never()
+        when:
+            assertThat(observable).hasNotCompleted()
+        then:
+            notThrown(AssertionError)
+    }
     def "When asserting values, should return an Assertion if values are present"() {
         given:
             def Observable<Integer> observable = Observable.just(1)
