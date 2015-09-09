@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class RxAssert<T> extends AbstractAssert<RxAssert<T>, Observable<T>> {
 	private final TestSubscriber<T> subscriber;
-	protected RxAssert(Observable<T> observable) {
+	private RxAssert(Observable<T> observable) {
 		super(observable, RxAssert.class);
 		subscriber = new TestSubscriber<>();
 		observable.subscribe(subscriber);
