@@ -86,4 +86,19 @@ class RxAssertSpec extends Specification {
         and:
             assertThat.isEmpty()
     }
+    def "When asserting failures, should return Assertion"() {
+        def expected = new TestException()
+        given:
+            def Observable observable = Observable.error(expected)
+        when:
+            def assertThat = assertThat(observable).failures()
+        then:
+            assertThat != null
+        and:
+            assertThat.contains(expected)
+    }
+
+    private static class TestException extends Exception{
+
+    }
 }

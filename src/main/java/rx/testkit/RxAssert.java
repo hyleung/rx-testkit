@@ -40,4 +40,8 @@ public class RxAssert<T> extends AbstractAssert<RxAssert<T>, Observable<T>> {
 		List<T> onNextEvents = subscriber.getOnNextEvents();
 		return (AbstractListAssert<?, ? extends List<? extends T>, T>) Assertions.assertThat(onNextEvents);
 	}
+
+	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
+		return (AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> )Assertions.assertThat(subscriber.getOnErrorEvents());
+	}
 }
