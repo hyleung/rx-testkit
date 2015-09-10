@@ -24,7 +24,7 @@ public class AssertAsyncObservable<T> extends AbstractAssert<AssertAsyncObservab
 		super(observable, AssertAsyncObservable.class);
 		subscriber = new TestSubscriber<>();
 		this.scheduler = scheduler;
-		observable.subscribeOn(scheduler).subscribe(subscriber);
+		observable.subscribe(subscriber);
 	}
 
 	public static <T> AssertAsyncObservable<T> assertThat(Observable<T> observable, TestScheduler scheduler) {
