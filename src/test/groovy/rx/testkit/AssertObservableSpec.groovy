@@ -2,7 +2,7 @@ package rx.testkit
 
 import rx.Observable
 import spock.lang.Specification
-import static rx.testkit.RxAssert.assertThat
+import static AssertObservable.assertThat
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,7 +10,7 @@ import static rx.testkit.RxAssert.assertThat
  * Time: 6:37 PM
  * To change this template use File | Settings | File Templates.
  */
-class RxAssertSpec extends Specification {
+class AssertObservableSpec extends Specification {
 
     def setup() {
 

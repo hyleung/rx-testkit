@@ -14,22 +14,22 @@ import java.util.List;
  * Time: 10:51 AM
  * To change this template use File | Settings | File Templates.
  */
-public class RxAssert<T> extends AbstractAssert<RxAssert<T>, Observable<T>> {
+public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Observable<T>> {
 	private final TestSubscriber<T> subscriber;
-	private RxAssert(Observable<T> observable) {
-		super(observable, RxAssert.class);
+	private AssertObservable(Observable<T> observable) {
+		super(observable, AssertObservable.class);
 		subscriber = new TestSubscriber<>();
 		observable.subscribe(subscriber);
 	}
-	public static <T> RxAssert<T> assertThat(Observable<T> observable) {
-		return new RxAssert<>(observable);
+	public static <T> AssertObservable<T> assertThat(Observable<T> observable) {
+		return new AssertObservable<>(observable);
 	}
-	public RxAssert<T> hasCompleted() {
+	public AssertObservable<T> hasCompleted() {
 		subscriber.assertCompleted();
 		return this;
 	}
 
-	public RxAssert<T> hasNotCompleted() {
+	public AssertObservable<T> hasNotCompleted() {
 		subscriber.assertNotCompleted();
 		return this;
 	}
