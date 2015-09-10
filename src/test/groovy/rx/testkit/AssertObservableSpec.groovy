@@ -1,10 +1,7 @@
 package rx.testkit
 
 import rx.Observable
-import rx.schedulers.TestScheduler
 import spock.lang.Specification
-
-import java.util.concurrent.TimeUnit
 
 import static AssertObservable.assertThat
 
@@ -51,6 +48,7 @@ class AssertObservableSpec extends Specification {
         then:
             notThrown(AssertionError)
     }
+
     def "When asserting values, should return an Assertion if values are present"() {
         given:
             def Observable<Integer> observable = Observable.just(1)
@@ -82,29 +80,7 @@ class AssertObservableSpec extends Specification {
         and:
             assertThat.isEmpty()
     }
-    def "When using a TestScheduler, should assert completed after advancing time"() {
-        given:
-            def TestScheduler scheduler = new TestScheduler()
-            def Observable<Integer> observable = Observable.just(1).delay(100, TimeUnit.MILLISECONDS, scheduler)
-        and:
-            def assertion = assertThat(observable)
-        when:
-            scheduler.advanceTimeBy(100, TimeUnit.MILLISECONDS)
-        then:
-            assertion.hasCompleted()
-    }
 
-    def "When using a TestScheduler, should assert not completed"() {
-        given:
-            def TestScheduler scheduler = new TestScheduler()
-            def Observable<Integer> observable = Observable.just(1).delay(100, TimeUnit.MILLISECONDS, scheduler)
-        and:
-            def assertion = assertThat(observable)
-        when:
-            scheduler.advanceTimeBy(99, TimeUnit.MILLISECONDS)
-        then:
-            assertion.hasNotCompleted()
-    }
 
     def "When asserting failures, should return Assertion"() {
         def expected = new TestException()

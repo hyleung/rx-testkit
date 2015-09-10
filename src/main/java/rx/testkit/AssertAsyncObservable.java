@@ -12,28 +12,31 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created with IntelliJ IDEA.
- * Date: 15-09-08
- * Time: 10:51 AM
+ * Date: 15-09-10
+ * Time: 10:41 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Observable<T>> {
+public class AssertAsyncObservable<T> extends AbstractAssert<AssertAsyncObservable<T>, Observable<T>> {
 	private final TestSubscriber<T> subscriber;
+	private final TestScheduler scheduler;
 
-	private AssertObservable(Observable<T> observable) {
-		super(observable, AssertObservable.class);
+	private AssertAsyncObservable(Observable<T> observable, TestScheduler scheduler) {
+		super(observable, AssertAsyncObservable.class);
 		subscriber = new TestSubscriber<>();
-		observable.subscribe(subscriber);
-	}
-	public static <T> AssertObservable<T> assertThat(Observable<T> observable) {
-		return new AssertObservable<>(observable);
+		this.scheduler = scheduler;
+		observable.subscribeOn(scheduler).subscribe(subscriber);
 	}
 
-	public AssertObservable<T> hasCompleted() {
+	public static <T> AssertAsyncObservable<T> assertThat(Observable<T> observable, TestScheduler scheduler) {
+		return new AssertAsyncObservable<T>(observable, scheduler);
+	}
+
+	public AssertAsyncObservable<T> hasCompleted() {
 		subscriber.assertCompleted();
 		return this;
 	}
 
-	public AssertObservable<T> hasNotCompleted() {
+	public AssertAsyncObservable<T> hasNotCompleted() {
 		subscriber.assertNotCompleted();
 		return this;
 	}
@@ -45,5 +48,10 @@ public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Obs
 
 	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
 		return (AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> )Assertions.assertThat(subscriber.getOnErrorEvents());
+	}
+
+	public AssertAsyncObservable<T> after(final long duration, final TimeUnit timeUnit) {
+		scheduler.advanceTimeBy(duration, timeUnit);
+		return this;
 	}
 }
