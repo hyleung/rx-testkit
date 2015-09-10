@@ -32,5 +32,17 @@ class AssertSingleSpec extends Specification {
         then:
             thrown(AssertionError)
     }
+    def "When asserting failure should pass"() {
+        def expected = new TestException()
+        given:
+            def Single single = Single.error(expected)
+        when:
+            def assertion = AssertSingle
+                    .assertThat(single)
+                    .failures()
+        then:
+            assertion.contains(expected)
+    }
 
+    private static class TestException extends Exception{}
 }

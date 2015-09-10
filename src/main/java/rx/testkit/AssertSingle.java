@@ -1,12 +1,11 @@
 package rx.testkit;
 
-import org.assertj.core.api.AbstractAssert;
-import org.assertj.core.api.AbstractObjectAssert;
-import org.assertj.core.api.Assert;
-import org.assertj.core.api.Assertions;
+import org.assertj.core.api.*;
 import rx.Observable;
 import rx.Single;
 import rx.observers.TestSubscriber;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,11 +26,11 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 
 	public AbstractObjectAssert<?, ? extends T> value() {
 		T value = subscriber.getOnNextEvents().get(0);
-		return Assertions.assertThat((T) value);
+		return (AbstractObjectAssert<?, ? extends T>)Assertions.assertThat((T) value);
 
 	}
 
-	public Assert<?, ? extends Throwable> failures() {
-		throw new RuntimeException("not implemented");
+	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
+		return (AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> )Assertions.assertThat(subscriber.getOnErrorEvents());
 	}
 }
