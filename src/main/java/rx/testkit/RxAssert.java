@@ -2,7 +2,6 @@ package rx.testkit;
 
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.AbstractListAssert;
-import org.assertj.core.api.Assert;
 import org.assertj.core.api.Assertions;
 import rx.Observable;
 import rx.observers.TestSubscriber;
