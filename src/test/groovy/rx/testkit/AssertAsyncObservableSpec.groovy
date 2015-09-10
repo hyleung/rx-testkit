@@ -84,11 +84,11 @@ class AssertAsyncObservableSpec extends Specification {
             def expected = new TestException()
             def TestScheduler scheduler = new TestScheduler()
             def Observable observable = Observable
-                    .error(expected)
-                    .delay(100, TimeUnit.MILLISECONDS, scheduler)
+                    .interval(1L, TimeUnit.SECONDS, scheduler)
+                    .map{l -> if (l == 1L) throw new RuntimeException() else return l}
         when:
             assertThat(observable, scheduler)
-                    .after(10, TimeUnit.MILLISECONDS)
+                    .after(1, TimeUnit.SECONDS)
                     .failures()
                     .contains(expected)
         then:
