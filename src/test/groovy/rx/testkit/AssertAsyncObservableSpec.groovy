@@ -5,7 +5,7 @@ import rx.schedulers.TestScheduler
 import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit
-import static rx.testkit.AssertAsyncObservable.assertThat
+import static rx.testkit.AssertObservable.assertThat
 
 
 /**
