@@ -3,6 +3,8 @@ package rx.testkit
 import rx.Observable
 import spock.lang.Specification
 
+import java.util.concurrent.TimeUnit
+
 import static AssertObservable.assertThat
 
 /**
@@ -103,6 +105,15 @@ class AssertObservableSpec extends Specification {
         and:
             assertThat.isEmpty()
     }
+    def "When using 'after', throws exception if no TestScheduler is provided"() {
+        given:
+            def Observable<Integer> observable = Observable.just(1)
+        when:
+            assertThat(observable).after(100, TimeUnit.MILLISECONDS)
+        then:
+            thrown(IllegalStateException)
+    }
+
 
     private static class TestException extends Exception{
 
