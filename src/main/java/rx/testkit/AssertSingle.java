@@ -26,11 +26,11 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 
 	public AbstractObjectAssert<?, ? extends T> value() {
 		T value = subscriber.getOnNextEvents().get(0);
-		return (AbstractObjectAssert<?, ? extends T>)Assertions.assertThat((T) value);
+		return Assertions.assertThat((T) value);
 
 	}
 
 	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
-		return (AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> )Assertions.assertThat(subscriber.getOnErrorEvents());
+		return Assertions.assertThat(subscriber.getOnErrorEvents());
 	}
 }

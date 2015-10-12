@@ -85,7 +85,7 @@ public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Obs
 	 */
 	public AbstractListAssert<?, ? extends List<? extends T>, T> values() {
 		List<T> onNextEvents = subscriber.getOnNextEvents();
-		return (AbstractListAssert<?, ? extends List<? extends T>, T>) Assertions.assertThat(onNextEvents);
+		return Assertions.assertThat(onNextEvents);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Obs
 	 * @return a ListAssert instance
 	 */
 	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
-		return (AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> )Assertions.assertThat(subscriber.getOnErrorEvents());
+		return Assertions.assertThat(subscriber.getOnErrorEvents());
 	}
 
 	/**
