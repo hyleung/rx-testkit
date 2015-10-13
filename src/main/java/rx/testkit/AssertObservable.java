@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * AssertJ {@link org.assertj.core.api.Assert} class for {@link Observable}s.
+ * AssertJ {@link org.assertj.core.api.Assert} class for {@link Observable}.
  *
- * Uses {@link TestSubscriber} from Rx to subscribe to {@link Observable}s and
+ * Uses {@link TestSubscriber} from Rx to subscribe to and {@link Observable} and
  * perform assertions on the results.
  *
  * Optionally, a {@link TestScheduler} can be used to perform async testing.
