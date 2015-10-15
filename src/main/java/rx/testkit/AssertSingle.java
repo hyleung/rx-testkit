@@ -7,6 +7,7 @@ import rx.observers.TestSubscriber;
 import rx.schedulers.TestScheduler;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * AssertJ {@link org.assertj.core.api.Assert} class for {@link Single}.
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> {
 	private final TestSubscriber<T> subscriber;
+	private TestScheduler scheduler;
 
 	private AssertSingle(final Single<T> single) {
 		super(single, AssertSingle.class);
@@ -24,6 +26,12 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 		single.toObservable().single().subscribe(subscriber);
 	}
 
+	private AssertSingle(final Single<T> single, final TestScheduler scheduler) {
+		super(single, AssertSingle.class);
+		subscriber = new TestSubscriber<>();
+		this.scheduler = scheduler;
+		single.toObservable().single().subscribe(subscriber);
+	}
 	/**
 	 * Create an {@link AssertSingle} instance for a {@link Single}.
 	 *
@@ -34,6 +42,10 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 */
 	public static <T> AssertSingle<T> assertThat(final Single<T> single) {
 		return new AssertSingle<>(single);
+	}
+
+	public static <T> AssertSingle<T> assertThat(final Single<T> single, TestScheduler scheduler) {
+		return new AssertSingle<T>(single, scheduler);
 	}
 
 	/**
@@ -54,5 +66,35 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 */
 	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
 		return Assertions.assertThat(subscriber.getOnErrorEvents());
+	}
+
+	/**
+	 * If a {@link TestScheduler} is provided, advanced the time by the specified duration.
+	 *
+	 * Throws an {@link IllegalStateException} if there is no {@link TestScheduler} provided.
+	 * Use {@link AssertSingle#AssertSingle(Single, TestScheduler)} to construct
+	 * an {@link AssertSingle} instance that can be used for async testing.
+	 *
+	 * @param duration the time duration
+	 * @param timeUnit the time unit of the duration
+	 *
+	 * @return the AssertSingle instance.
+	 */
+	public AssertSingle<T> after(final long duration, final TimeUnit timeUnit) {
+		if (scheduler == null) {
+			throw new IllegalStateException("No TestScheduler provided. Perhaps you forgot to 'assertThat(Observable, TestScheduler)'?");
+		}
+		scheduler.advanceTimeBy(duration, timeUnit);
+		return this;
+	}
+
+	public AssertSingle<T> hasCompleted() {
+		subscriber.assertCompleted();
+		return this;
+	}
+
+	public AssertSingle<T> hasNotCompleted() {
+		subscriber.assertNotCompleted();
+		return this;
 	}
 }

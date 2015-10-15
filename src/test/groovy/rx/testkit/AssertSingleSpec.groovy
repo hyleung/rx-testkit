@@ -1,7 +1,12 @@
 package rx.testkit
 
+import rx.Observable
 import spock.lang.Specification
 import rx.Single
+
+import java.util.concurrent.TimeUnit
+
+import static rx.testkit.AssertSingle.assertThat
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +20,7 @@ class AssertSingleSpec extends Specification {
         given:
             def Single single = Single.just(1)
         when:
-            def assertThat = AssertSingle.assertThat(single).value()
+            def assertThat = assertThat(single).value()
         then:
             assertThat != null
         and:
@@ -25,8 +30,7 @@ class AssertSingleSpec extends Specification {
         given:
             def Single single = Single.just(2)
         when:
-            AssertSingle
-                    .assertThat(single)
+            assertThat(single)
                     .value()
                     .isEqualTo(1)
         then:
@@ -37,12 +41,18 @@ class AssertSingleSpec extends Specification {
         given:
             def Single single = Single.error(expected)
         when:
-            def assertion = AssertSingle
-                    .assertThat(single)
+            def assertion = assertThat(single)
                     .failures()
         then:
             assertion.contains(expected)
     }
-
+    def "When using 'after', throws exception if no TestScheduler is provided"() {
+        given:
+            def Single<Integer> single = Observable.just(1).toSingle()
+        when:
+            assertThat(single).after(100, TimeUnit.MILLISECONDS)
+        then:
+            thrown(IllegalStateException)
+    }
     private static class TestException extends Exception{}
 }
