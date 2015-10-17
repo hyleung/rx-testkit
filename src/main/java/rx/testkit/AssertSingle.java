@@ -44,6 +44,17 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 		return new AssertSingle<>(single);
 	}
 
+	/**
+	 * Create an {@link AssertSingle} instance for a {@link Single} with a {@link TestScheduler}.
+	 *
+	 * Used for async testing
+	 *
+	 * @param single the single
+	 * @param scheduler the test scheduler
+	 * @param <T> the return type of the Single
+	 *
+	 * @return an AssertSingle instance
+	 */
 	public static <T> AssertSingle<T> assertThat(final Single<T> single, TestScheduler scheduler) {
 		return new AssertSingle<T>(single, scheduler);
 	}
@@ -88,12 +99,21 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 		return this;
 	}
 
+	/**
+	 * Assert that the {@link Single} has completed.
+	 *
+	 * @return the AssertSingle instance
+	 */
 	public AssertSingle<T> hasCompleted() {
 		subscriber.assertCompleted();
 		return this;
 	}
 
-	public AssertSingle<T> hasNotCompleted() {
+	/** Assert that the {@link Single} has *not* completed.
+	 *
+	 * @return the AssertSingle instance
+	 */
+ 	public AssertSingle<T> hasNotCompleted() {
 		subscriber.assertNotCompleted();
 		return this;
 	}

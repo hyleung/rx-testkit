@@ -1,3 +1,46 @@
-#RX TestKit
+#RX TestKit: AssertJ for RxJava
 
-...A few extra `assert` functions added to the base `rx.observers.TestSubscriber<T>` for convenience.
+This library provides a set of [AssertJ](http://joel-costigliola.github.io/assertj/) assertions that can be used to make unit testing of [RxJava](https://github.com/ReactiveX/RxJava) code a little easier.
+
+#Usage
+
+RxTestKit currently supports AssertJ `assertThat` style assertions on `rx.Observable` as well as `rx.Single`, including async testing using `rx.schedulers.TestScheduler`.  
+
+##Examples:
+
+Assert that an Observable has completed…
+```
+Observable<String> observable = Observable.just("foo");
+
+assertThat(observable)
+    .hasCompleted();
+```
+
+…or hasn't completed:
+```
+Observable<String> observable = Observable.just("foo");
+
+assertThat(observable)
+    .hasNotCompleted();
+```
+
+…or has values (returns an `AbstractListAssert`)
+```
+Observable<String> observable = Observable.just("foo");
+
+assertThat(observable)
+    .values()
+    .contains("foo");
+```
+…or emits a certain error (also returns an `AbstractListAssert`)
+
+```
+Exception myException = new Exception();
+
+Observable<String> observable = Observable.error(myException);
+
+assertThat(observable)
+    .failures()
+    .contains(myException);
+```
+
