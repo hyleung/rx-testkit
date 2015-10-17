@@ -1,6 +1,6 @@
-#RX TestKit: AssertJ for RxJava
+#RX TestKit: AssertJ for RxJava ![Build Status](https://travis-ci.org/hyleung/rx-testkit.svg?branch=master)
 
-This library provides a set of [AssertJ](http://joel-costigliola.github.io/assertj/) assertions that can be used to make unit testing of [RxJava](https://github.com/ReactiveX/RxJava) code a little easier.
+This library provides a set of [AssertJ](http://joel-costigliola.github.io/assertj/) assertions that can be used to make unit testing of [RxJava](https://github.com/ReactiveX/RxJava) code a little easier. 
 
 #Usage
 
