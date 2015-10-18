@@ -1,3 +1,19 @@
 language: java
 jdk:
-    - oraclejdk8
+- oraclejdk7
+
+sudo: false  
+
+install: ./gradlew clean assemble -Psigning.keyId=$SIGNING_KEY_ID -Psigning.password=$SIGNING_PASSWORD
+  -Psigning.secretKeyRingFile=gradle/secring.gpg
+cache:
+  directories:
+  - $HOME/.gradle/caches/
+  - $HOME/.gradle/wrapper/
+env:
+  global:
+  - secure: DcQubvWPY0lPgFsknvf0rm6rQQSZPwY9cPmCaGpwyZCwAfF2hAKaqb21Wk7gB6YoR0foDK6zV2pVHXN2mqcV0/Us+8Y687ZODTZaN/JP/rr7n5rIRnQzE1kM65lZ6v6YTDsUslxZv/rTVSIrKQqeNhVChpJOobsUCOHudpZjfzFpWhoXLmBxalYS4us4hzPcAqmXGEy7AX+g94OQwix42SGoMcIxVcPE9BD7XxdJEcnl8uCHEg2N0LAQjzbnbVVc1W7tEQ0kDoEVktgd46CG0szDJ/kyzPFW0byda5+WU/az7Byl9CJhbRVgdy7v0vChiS/YLJj8edNHKPjC6e/Ya3joezTJd6yW+AGxPTUc3UxWiVdL0nuUS9sjoH8J/9IQGDbGhD58a+wqL98swxfj0x07GUODXd8VMWbFesXBUXNLjAnumH2s2ZjEs0j+8X0vHlhX/NSjQJmfV0G2IqT9+FRsNhJfGarzCCmOQ2lRT+hUEzpMYBgw57S3BvLbpVNJFJPGZEWV++6/Ep66F2O180ApFtugwaE3BGrLuBjVScNSvarpc9WdaKeTD48bwqDwim4/4H8p//02IgkE60OGZzFe92u7xu+CZhP8zwCoWbdqZTyqx6PCU6N+vKfvxloBXdYpxdMpe6MT6KSi7ZFt2MoCNRwlQ456aSz1ucYuHIg=
+  - secure: gw8BPV9mwg8a3ga9lQk9GoQIFh2DjUCUAPo3b0iOXf1/OKiIMGTtF/SQ/skmYGXEHEMMX4fdZLdqyekgxPpqsMj3abMSDcasXs87oiFctm/qmdmRpUUcwBybFJyuZIXl6ClJFXTbt45ggShgDVbeSwWmV+Gq73fcsFZAYdvEfmd8WTI96ImwlSnMxkzDiFGKT4NVcDIRnYZvGa9jgzPkiaXeIbbe6qcoLcdd2EnCqhxcgFd7V/23wIQesHVSvVcRygSPma5J7OV4MHQlvxpbSBqNtNA+1ZipB8V7Hh3GkSNVUaspFgd38O0ASqgeOIKrR11sDc6awWYTRMxruZ3gYyIQhQxpv8ZzFu+w5Vk9j2Qqm9JGDja6ZVJIGu4V+jqOcu4ZAr7iud9E6qmb2GiJOebN5XSnz/vDCr8rP3EvEzzesuzrwgL8UuIWwqmeM9XiGikiXwQQIXBUhiZkFXb4wKayCSEFYI7+H0bmhx5GMY7I4WnR+ad06YnMK89DAhwiF0KCCgp30WlDMrUbM9Dkgua6eo3ZWzRheo3ezzH1TxAbZWsXqfb8/RUfmYJp1bmFhkUMR2Ar6/BkIhXk1wOKYVM4WnEhoTDCeCZU02GkQEOiJg2MGOJtIpgBcmN2a16UR2ouZowmo0dOBinwEIDI8RowHtF9z6RRMRFyI9F+B98=
+before_install:
+- openssl aes-256-cbc -K $encrypted_d2c75c3dfb4f_key -iv $encrypted_d2c75c3dfb4f_iv
+  -in gradle/keychain.enc -out gradle/secring.gpg -d

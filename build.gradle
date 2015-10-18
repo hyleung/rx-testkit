@@ -2,11 +2,12 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: "jacoco"
 apply plugin: 'maven'
+apply plugin: 'signing'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7   
+targetCompatibility = 1.7
 
-version = "0-SNAPSHOT"
+version = "SNAPSHOT"
 
 install {
     repositories.mavenInstaller {
@@ -25,6 +26,10 @@ jacocoTestReport {
         csv.enabled false
         html.destination "${buildDir}/jacocoHtml"
     }
+}
+
+signing {
+    sign configurations.archives
 }
 
 dependencies {

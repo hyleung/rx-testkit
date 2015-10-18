@@ -1,3 +1,7 @@
+
+# Gradle properties file for JAR signing
+signing.properties
+
 ### https://raw.github.com/github/gitignore/e0df63986afdb4da49071873c054ef4288e6f4ed/java.gitignore
 
 *.class
