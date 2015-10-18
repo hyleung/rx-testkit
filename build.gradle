@@ -7,7 +7,7 @@ apply plugin: 'signing'
 sourceCompatibility = 1.7   
 targetCompatibility = 1.7
 
-version = "SNAPSHOT"
+version = "1.0-SNAPSHOT"
 
 install {
     repositories.mavenInstaller {
