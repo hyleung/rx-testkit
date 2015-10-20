@@ -11,8 +11,8 @@ version = "1.0-SNAPSHOT"
 
 install {
     repositories.mavenInstaller {
-        pom.groupId = 'rx.testkit'
-        pom.artifactId = 'testkit-java'
+        pom.groupId = 'com.github.hyleung'
+        pom.artifactId = 'rx-testkit-java'
     }
 }
 
