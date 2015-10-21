@@ -9,11 +9,9 @@ targetCompatibility = 1.7
 
 version = "1.0-SNAPSHOT"
 
-install {
-    repositories.mavenInstaller {
-        pom.groupId = 'com.github.hyleung'
-        pom.artifactId = 'rx-testkit-java'
-    }
+
+configurations {
+    deployerJars
 }
 
 repositories {
@@ -28,6 +26,13 @@ jacocoTestReport {
     }
 }
 
+/**
+ * Set the credentials from ENV variables.
+ */
+def repoUserName = System.getenv("SONATYPE_USER")
+def repoPassword = System.getenv("SONATYPE_PASSWORD")
+
+
 signing {
     sign configurations.archives
 }
@@ -40,4 +45,30 @@ dependencies {
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile "org.mockito:mockito-core:1.+"
     testCompile 'junit:junit:4.11'
+    deployerJars "org.apache.maven.wagon:wagon-ssh:2.2"
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                authentication(userName: "${repoUserName}", password: "${repoPassword}")
+            }
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: "${repoUserName}", password: "${repoPassword}")
+            }
+            configuration = configurations.deployerJars
+            pom.project {
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+            }
+            pom.groupId = 'com.github.hyleung'
+            pom.artifactId = 'rx-testkit-java'
+        }
+    }
 }
