@@ -18,5 +18,7 @@ env:
 before_install:
 - openssl aes-256-cbc -K $encrypted_d2c75c3dfb4f_key -iv $encrypted_d2c75c3dfb4f_iv
   -in gradle/keychain.enc -out gradle/secring.gpg -d
-after_success: . ./gradle/publish_javadoc.sh && . ./gradle/publish_artifacts.sh
+after_success: 
+    - . ./gradle/publish_javadoc.sh
+    - . ./gradle/publish_artifacts.sh
 
