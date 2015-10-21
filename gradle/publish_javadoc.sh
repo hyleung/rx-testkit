@@ -22,4 +22,6 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; th
 
     cd ..
     rm -rf gh-pages
+else
+    echo "Skipping Javadoc publish for $TRAVIS_BRANCH, $TRAVIS_BUILD_NUMBER"
 fi
