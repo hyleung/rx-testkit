@@ -1,4 +1,6 @@
 #!/bin/bash
+cd $TRAVIS_BUILD_DIR
+
 if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then 
     echo "Publishing artifacts to Sonatype OSS..." 
     ./gradlew upload -Psigning.keyId=$SIGNING_KEY -Psigning.password=$SIGNING_PASSWORD -Psigning.secretKeyRingFile=gradle/secring.gpg
