@@ -79,7 +79,13 @@ uploadArchives {
                 packaging 'jar'
                 description 'AssertJ for RxJava'
                 url 'http://hyleung.github.io/rx-testkit/'
-
+                developers {
+                    developer {
+                        id "hyleung";
+                        name "Ho Yan Leung";
+                        email "hy.leung@gmail.com";
+                    }
+                }
                 licenses {
                     license {
                         name 'The Apache Software License, Version 2.0'
