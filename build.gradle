@@ -79,6 +79,11 @@ uploadArchives {
                 packaging 'jar'
                 description 'AssertJ for RxJava'
                 url 'http://hyleung.github.io/rx-testkit/'
+                scm {
+                    url "https://github.com/hyleung/rx-testkit.git";
+                    connection "scm:git:git://github.com/hyleung/rx-testkit.git";
+                    developerConnection "scm:git:git@github.com:hyleung/rx-testkit.git";
+                }
                 developers {
                     developer {
                         id "hyleung";
