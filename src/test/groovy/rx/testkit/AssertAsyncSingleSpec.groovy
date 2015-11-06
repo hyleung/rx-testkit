@@ -22,7 +22,7 @@ class AssertAsyncSingleSpec extends Specification {
 
     def setup() {
         scheduler = new TestScheduler()
-        single = Observable.just(1).delay(100, TimeUnit.MILLISECONDS, scheduler).toSingle()
+        single = Single.just(1).delay(100, TimeUnit.MILLISECONDS, scheduler)
     }
     def "When asserting hasCompleted, should pass with TestScheduler"() {
         when:
