@@ -6,6 +6,21 @@ This library provides a set of [AssertJ](http://joel-costigliola.github.io/asser
 
 RxTestKit currently supports AssertJ `assertThat` style assertions on `rx.Observable` as well as `rx.Single`, including async testing using `rx.schedulers.TestScheduler`.  
 
+### via Maven:
+```
+<dependency>
+    <groupId>com.github.hyleung</groupId>
+    <artifactId>rx-testkit-java</artifactId>
+    <version>1.0.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+### via Gradle
+```
+test 'com.github.hyleung:rx-testkit-java:1.0.0'
+```
+
 ##Examples:
 
 Assert that an Observable has completed…
