@@ -1,7 +1,6 @@
 package rx.testkit;
 
 import org.assertj.core.api.*;
-import rx.Observable;
 import rx.Single;
 import rx.observers.TestSubscriber;
 import rx.schedulers.TestScheduler;
