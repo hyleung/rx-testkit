@@ -29,6 +29,24 @@ class AssertCompletableSpec extends Specification {
         then:
             thrown(AssertionError)
     }
+    def "When asserting not completed should pass"() {
+        given:
+            def Completable completable = Completable.never()
+        when:
+            def assertThat = assertThat(completable).hasNotCompleted()
+        then:
+            assertThat != null
+        and:
+            noExceptionThrown()
+    }
+    def "When asserting not completed should throw AssertionError"() {
+        given:
+            def Completable completable = Completable.complete()
+        when:
+            assertThat(completable).hasNotCompleted()
+        then:
+            thrown(AssertionError)
+    }
     def "When asserting failure should pass"() {
         def expected = new TestException()
         given:

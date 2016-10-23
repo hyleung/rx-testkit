@@ -91,6 +91,16 @@ public class AssertCompletable extends AbstractAssert<AssertCompletable, Complet
   }
 
   /**
+   * Assert that the underlying {@link AssertCompletable} has *not* completed.
+   *
+   * @return the AssertCompletable instance
+   */
+  public AssertCompletable hasNotCompleted() {
+    subscriber.assertNotCompleted();
+    return this;
+  }
+
+  /**
    * Create a {@link ListAssert} from the error(s) emitted by the {@link Completable}.
    *
    * @return a list assert
