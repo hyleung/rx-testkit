@@ -11,14 +11,14 @@ RxTestKit currently supports AssertJ `assertThat` style assertions on `rx.Observ
 <dependency>
     <groupId>com.github.hyleung</groupId>
     <artifactId>rx-testkit-java</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
 ### via Gradle
 ```
-test 'com.github.hyleung:rx-testkit-java:1.0.0'
+test 'com.github.hyleung:rx-testkit-java:1.1.0'
 ```
 
 ##Examples:
@@ -59,3 +59,16 @@ assertThat(observable)
     .contains(myException);
 ```
 
+...or mess around with time using a `TestScheduler`:
+
+```
+ TestScheduler scheduler = new TestScheduler();
+ Observable<Integer> observable = Observable.just(1).delay(99, TimeUnit.MILLISECONDS, scheduler);
+
+ assertThat(observable, scheduler)
+         .after(100, TimeUnit.MILLISECONDS)
+         .values()
+         .isNotEmpty();
+```
+
+There's also support for `rx.Single` and `rx.Completable`.
