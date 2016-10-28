@@ -1,8 +1,8 @@
 package rx.testkit
 
-import rx.Observable
+import io.reactivex.Observable
 import spock.lang.Specification
-import rx.Single
+import io.reactivex.Single
 
 import java.util.concurrent.TimeUnit
 
@@ -48,7 +48,7 @@ class AssertSingleSpec extends Specification {
     }
     def "When using 'after', throws exception if no TestScheduler is provided"() {
         given:
-            def Single<Integer> single = Observable.just(1).toSingle()
+            def Single<Integer> single = Single.just(1)
         when:
             assertThat(single).after(100, TimeUnit.MILLISECONDS)
         then:

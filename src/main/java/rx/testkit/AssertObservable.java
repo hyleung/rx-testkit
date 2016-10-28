@@ -1,11 +1,12 @@
 package rx.testkit;
 
+import io.reactivex.Observable;
+import io.reactivex.observers.TestObserver;
+import io.reactivex.schedulers.TestScheduler;
+import io.reactivex.subscribers.TestSubscriber;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.AbstractListAssert;
 import org.assertj.core.api.Assertions;
-import rx.Observable;
-import rx.observers.TestSubscriber;
-import rx.schedulers.TestScheduler;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,11 +20,12 @@ import java.util.concurrent.TimeUnit;
  * Optionally, a {@link TestScheduler} can be used to perform async testing.
  */
 public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Observable<T>> {
-	private final TestSubscriber<T> subscriber;
+	private final TestObserver<T> subscriber;
 	private TestScheduler scheduler;
-	private AssertObservable(Observable<T> observable) {
+	private AssertObservable(Observable<T> observable)
+	{
 		super(observable, AssertObservable.class);
-		subscriber = new TestSubscriber<>();
+		subscriber = new TestObserver<>();
 		observable.subscribe(subscriber);
 	}
 	private AssertObservable(Observable<T> observable, TestScheduler scheduler) {
@@ -64,7 +66,7 @@ public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Obs
 	 * @return the AssertObservable instance
 	 */
 	public AssertObservable<T> hasCompleted() {
-		subscriber.assertCompleted();
+		subscriber.assertTerminated();
 		return this;
 	}
 
@@ -74,7 +76,7 @@ public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Obs
 	 * @return the AssertObservable instance
 	 */
 	public AssertObservable<T> hasNotCompleted() {
-		subscriber.assertNotCompleted();
+		subscriber.assertNotTerminated();
 		return this;
 	}
 
@@ -84,7 +86,7 @@ public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Obs
 	 * @return a ListAssert instance
 	 */
 	public AbstractListAssert<?, ? extends List<? extends T>, T> values() {
-		List<T> onNextEvents = subscriber.getOnNextEvents();
+		List<T> onNextEvents = subscriber.values();
 		return Assertions.assertThat(onNextEvents);
 	}
 
@@ -94,7 +96,7 @@ public class AssertObservable<T> extends AbstractAssert<AssertObservable<T>, Obs
 	 * @return a ListAssert instance
 	 */
 	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
-		return Assertions.assertThat(subscriber.getOnErrorEvents());
+		return Assertions.assertThat(subscriber.errors());
 	}
 
 	/**
