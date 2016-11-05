@@ -1,6 +1,6 @@
 package rx.testkit
 
-import rx.Completable
+import io.reactivex.Completable
 import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit

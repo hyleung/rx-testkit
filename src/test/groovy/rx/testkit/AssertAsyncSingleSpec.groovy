@@ -1,8 +1,8 @@
 package rx.testkit
 
-import rx.Single
-import rx.Observable
-import rx.schedulers.TestScheduler
+import io.reactivex.Single
+import io.reactivex.Observable
+import io.reactivex.schedulers.TestScheduler
 import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit
@@ -58,7 +58,7 @@ class AssertAsyncSingleSpec extends Specification {
             single = Observable.
                     error(expected)
                     .delay(100, TimeUnit.MILLISECONDS, scheduler)
-                    .toSingle()
+                    .firstOrError()
         when:
             assertThat(single, scheduler)
                     .after(100, TimeUnit.MILLISECONDS)
@@ -73,7 +73,7 @@ class AssertAsyncSingleSpec extends Specification {
             Single<Long> single = Observable
                 .interval(1L, TimeUnit.SECONDS, scheduler)
                 .map{l -> if (l == 1L) throw new RuntimeException() else return l}
-                .toSingle()
+                .firstOrError()
         when:
             assertThat(single, scheduler)
                     .after(1, TimeUnit.SECONDS)

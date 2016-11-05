@@ -1,9 +1,10 @@
 package rx.testkit;
 
+import io.reactivex.observers.TestObserver;
 import org.assertj.core.api.*;
-import rx.Single;
-import rx.observers.TestSubscriber;
-import rx.schedulers.TestScheduler;
+import io.reactivex.Single;
+import io.reactivex.subscribers.TestSubscriber;
+import io.reactivex.schedulers.TestScheduler;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -16,20 +17,20 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> {
-	private final TestSubscriber<T> subscriber;
+	private final TestObserver<T> subscriber;
 	private TestScheduler scheduler;
 
 	private AssertSingle(final Single<T> single) {
 		super(single, AssertSingle.class);
-		subscriber = new TestSubscriber<>();
-		single.toObservable().single().subscribe(subscriber);
+		subscriber = new TestObserver<>();
+		single.subscribe(subscriber);
 	}
 
 	private AssertSingle(final Single<T> single, final TestScheduler scheduler) {
 		super(single, AssertSingle.class);
-		subscriber = new TestSubscriber<>();
+		subscriber = new TestObserver<>();
 		this.scheduler = scheduler;
-		single.toObservable().single().subscribe(subscriber);
+		single.subscribe(subscriber);
 	}
 	/**
 	 * Create an {@link AssertSingle} instance for a {@link Single}.
@@ -64,7 +65,7 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 * @return an Object assert
 	 */
 	public AbstractObjectAssert<?, ? extends T> value() {
-		T value = subscriber.getOnNextEvents().get(0);
+		T value = subscriber.values().get(0);
 		return Assertions.assertThat((T) value);
 
 	}
@@ -75,7 +76,7 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 * @return a list assert
 	 */
 	public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
-		return Assertions.assertThat(subscriber.getOnErrorEvents());
+		return Assertions.assertThat(subscriber.errors());
 	}
 
 	/**
@@ -104,7 +105,7 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 * @return the AssertSingle instance
 	 */
 	public AssertSingle<T> hasCompleted() {
-		subscriber.assertCompleted();
+		subscriber.isTerminated();
 		return this;
 	}
 
@@ -113,7 +114,7 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 * @return the AssertSingle instance
 	 */
  	public AssertSingle<T> hasNotCompleted() {
-		subscriber.assertNotCompleted();
+		subscriber.assertNotTerminated();
 		return this;
 	}
 }

@@ -1,6 +1,6 @@
 package rx.testkit
 
-import rx.Observable
+import io.reactivex.Observable
 import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit

@@ -1,7 +1,7 @@
 package rx.testkit
 
-import rx.Observable
-import rx.schedulers.TestScheduler
+import io.reactivex.Observable
+import io.reactivex.schedulers.TestScheduler
 import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit

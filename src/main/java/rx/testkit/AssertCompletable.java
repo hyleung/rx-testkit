@@ -1,12 +1,13 @@
 package rx.testkit;
 
+import io.reactivex.observers.TestObserver;
 import org.assertj.core.api.AbstractAssert;
 import org.assertj.core.api.AbstractListAssert;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ListAssert;
-import rx.Completable;
-import rx.observers.TestSubscriber;
-import rx.schedulers.TestScheduler;
+import io.reactivex.Completable;
+import io.reactivex.subscribers.TestSubscriber;
+import io.reactivex.schedulers.TestScheduler;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,18 +20,18 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class AssertCompletable extends AbstractAssert<AssertCompletable, Completable> {
-  private final TestSubscriber subscriber;
+  private final TestObserver subscriber;
   private TestScheduler scheduler;
 
   private AssertCompletable(final Completable completable) {
     super(completable, AssertCompletable.class);
-    subscriber = new TestSubscriber();
+    subscriber = new TestObserver();
     completable.subscribe(subscriber);
   }
 
   private AssertCompletable(final Completable completable, final TestScheduler scheduler) {
     super(completable, AssertCompletable.class);
-    subscriber = new TestSubscriber();
+    subscriber = new TestObserver();
     this.scheduler = scheduler;
     completable.subscribe(subscriber);
   }
@@ -86,7 +87,7 @@ public class AssertCompletable extends AbstractAssert<AssertCompletable, Complet
    * @return the AssertCompletable instance
    */
   public AssertCompletable hasCompleted() {
-    subscriber.assertCompleted();
+    subscriber.assertTerminated();
     return this;
   }
 
@@ -96,7 +97,7 @@ public class AssertCompletable extends AbstractAssert<AssertCompletable, Complet
    * @return the AssertCompletable instance
    */
   public AssertCompletable hasNotCompleted() {
-    subscriber.assertNotCompleted();
+    subscriber.assertNotTerminated();
     return this;
   }
 
@@ -107,7 +108,7 @@ public class AssertCompletable extends AbstractAssert<AssertCompletable, Complet
    */
   @SuppressWarnings("unchecked")
   public AbstractListAssert<?,? extends List<? extends Throwable>, Throwable> failures() {
-    return Assertions.assertThat(subscriber.getOnErrorEvents());
+    return Assertions.assertThat(subscriber.errors());
   }
 
 }
