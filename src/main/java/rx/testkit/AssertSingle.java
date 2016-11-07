@@ -56,7 +56,7 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 * @return an AssertSingle instance
 	 */
 	public static <T> AssertSingle<T> assertThat(final Single<T> single, TestScheduler scheduler) {
-		return new AssertSingle<T>(single, scheduler);
+		return new AssertSingle<>(single, scheduler);
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 */
 	public AbstractObjectAssert<?, ? extends T> value() {
 		T value = subscriber.values().get(0);
-		return Assertions.assertThat((T) value);
+		return Assertions.assertThat(value);
 
 	}
 
