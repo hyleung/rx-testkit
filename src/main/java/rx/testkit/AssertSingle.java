@@ -90,6 +90,8 @@ public class AssertSingle<T> extends AbstractAssert<AssertSingle<T>, Single<T>> 
 	 * @param timeUnit the time unit of the duration
 	 *
 	 * @return the AssertSingle instance.
+	 *
+	 * @throws IllegalStateException if called when no test scheduler was provided
 	 */
 	public AssertSingle<T> after(final long duration, final TimeUnit timeUnit) {
 		if (scheduler == null) {

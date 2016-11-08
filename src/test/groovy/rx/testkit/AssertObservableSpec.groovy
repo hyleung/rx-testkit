@@ -8,10 +8,7 @@ import java.util.concurrent.TimeUnit
 import static AssertObservable.assertThat
 
 /**
- * Created with IntelliJ IDEA.
- * Date: 15-09-08
- * Time: 6:37 PM
- * To change this template use File | Settings | File Templates.
+ * Test suite for {@link AssertObservable}.
  */
 class AssertObservableSpec extends Specification {
 

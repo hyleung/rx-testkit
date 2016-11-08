@@ -9,10 +9,7 @@ import static rx.testkit.AssertObservable.assertThat
 
 
 /**
- * Created with IntelliJ IDEA.
- * Date: 15-09-10
- * Time: 10:44 AM
- * To change this template use File | Settings | File Templates.
+ * Async test suite for {@link AssertObservable}.
  */
 class AssertAsyncObservableSpec extends Specification {
     def "When asserting hasCompleted, should pass with TestScheduler"() {

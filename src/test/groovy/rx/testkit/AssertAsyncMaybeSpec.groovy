@@ -8,7 +8,9 @@ import java.util.concurrent.TimeUnit
 
 import static rx.testkit.AssertMaybe.assertThat
 
-
+/**
+ * Async test suite for {@link AssertMaybe}.
+ */
 class AssertAsyncMaybeSpec extends Specification {
     def Maybe<Integer> maybe
     def TestScheduler scheduler

@@ -7,7 +7,9 @@ import java.util.concurrent.TimeUnit
 
 import static rx.testkit.AssertMaybe.assertThat
 
-
+/**
+ * Test suite for {@link AssertMaybe}.
+ */
 class AssertMaybeSpec extends Specification {
     def "When asserting value should pass"() {
         given:

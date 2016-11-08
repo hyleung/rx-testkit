@@ -1,18 +1,14 @@
 package rx.testkit
 
-import io.reactivex.Observable
-import spock.lang.Specification
 import io.reactivex.Single
+import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit
 
 import static rx.testkit.AssertSingle.assertThat
 
 /**
- * Created with IntelliJ IDEA.
- * Date: 15-09-09
- * Time: 6:29 PM
- * To change this template use File | Settings | File Templates.
+ * Test suite for {@link AssertSingle}.
  */
 class AssertSingleSpec extends Specification {
 

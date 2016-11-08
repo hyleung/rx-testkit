@@ -11,10 +11,7 @@ import static rx.testkit.AssertSingle.assertThat
 
 
 /**
- * Created with IntelliJ IDEA.
- * Date: 15-10-12
- * Time: 6:14 PM
- * To change this template use File | Settings | File Templates.
+ * Async test suite for {@link AssertSingle}.
  */
 class AssertAsyncSingleSpec extends Specification {
     def Single<Integer> single
