@@ -19,10 +19,10 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; th
     git commit -m "Javadoc for travis build: $TRAVIS_BUILD_NUMBER auto-pushed to ./docs"
 
     echo "Pushing changes to remote"
-    #git push
+    git push
 
     cd ..
-    #rm -rf gh-pages
+    rm -rf gh-pages
 else
     echo "Skipping Javadoc publish for $TRAVIS_BRANCH, $TRAVIS_BUILD_NUMBER"
 fi
