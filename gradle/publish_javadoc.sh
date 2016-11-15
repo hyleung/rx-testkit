@@ -16,7 +16,7 @@ if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; th
     git add -u .
     git add .
 
-    git commit -m "Javadoc for travis build: $TRAVIS_BUILD_NUMBER auto-pushed to ./docs"
+    git commit -m "Javadoc for travis build: $TRAVIS_BUILD_NUMBER auto-pushed to ./docs [skip ci]"
 
     echo "Pushing changes to remote"
     git push
