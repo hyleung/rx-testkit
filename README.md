@@ -2,7 +2,26 @@
 
 This library provides a set of [AssertJ](http://joel-costigliola.github.io/assertj/) assertions that can be used to make unit testing of [RxJava](https://github.com/ReactiveX/RxJava) code a little easier. 
 
-#Usage
+# RxJava 2.x
+
+### via Maven:
+```
+<dependency>
+    <groupId>com.github.hyleung</groupId>
+    <artifactId>rx-testkit-java</artifactId>
+    <version>2.0.0</version>
+    <scope>test</scope>
+</dependency>
+```
+
+### via Gradle
+```
+test 'com.github.hyleung:rx-testkit-java:2.0.0'
+```
+
+## RxJava 1.x
+
+For RxJava 1.x, the latest release of this library is 1.1.0. 
 
 ### via Maven:
 ```
@@ -17,40 +36,6 @@ This library provides a set of [AssertJ](http://joel-costigliola.github.io/asser
 ### via Gradle
 ```
 test 'com.github.hyleung:rx-testkit-java:1.1.0'
-```
-
-## RxJava 2.x
-
-For RxJava 2.x, there's a snapshot dependency available.
-
-### via Maven:
-```
- <repositories>
-   <repository>
-     <id>snapshots-repo</id>
-     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-     <releases><enabled>false</enabled></releases>
-     <snapshots><enabled>true</enabled></snapshots>
-   </repository>
- </repositories>
-...
-<dependency>
-    <groupId>com.github.hyleung</groupId>
-    <artifactId>rx-testkit-java</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
-    <scope>test</scope>
-</dependency>
-```
-
-### via Gradle
-```
-repositories {
-    maven {
-        url "https://oss.sonatype.org/content/repositories/snapshots/"
-    } 
-}
-...
-test 'com.github.hyleung:rx-testkit-java:2.0.0-SNAPSHOT'
 ```
 
 ##Examples:
